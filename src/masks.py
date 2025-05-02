@@ -17,7 +17,7 @@ def get_mask_card_number(card_number: str) -> str:
 
 
 def get_mask_account(account_number: str) -> str:
-    """ Masking number of account"""
+    """Masking number of account"""
 
     masked_account_number = account_number.replace(account_number[0:-4], "**")
 
