@@ -1,12 +1,14 @@
 import re
+from re import Match
 
-from masks import get_mask_card_number, get_mask_account
+from masks import get_mask_account, get_mask_card_number
+
 
 def mask_account_card(bank_data: str) -> str:
     """Finding card and account numbers
      in a string and masking them"""
 
-    def mask_account(match: str) -> str:
+    def mask_account(match: Match[str]) -> str:
         """Masking 20-digit card numbers"""
 
         digits = match.group(1)
@@ -16,7 +18,7 @@ def mask_account_card(bank_data: str) -> str:
     # Checking account numbers
     bank_data = re.sub(r"Счет\s+(\d{20})", mask_account, bank_data)
 
-    def mask_card(match: str) -> str:
+    def mask_card(match: Match[str]) -> str:
         """Masking 16-digit card numbers"""
 
         digits = match.group()
