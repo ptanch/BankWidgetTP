@@ -33,3 +33,12 @@ def mask_account_card(bank_data: str) -> str:
 if __name__ == '__main__':
     print(mask_account_card("Счет 73654108430135874305"))
     print(mask_account_card("Visa Platinum 7000792289606361"))
+
+
+def get_date(full_date: str) -> str:
+    """Output of a simplified date"""
+    return f"{full_date[8:10]}.{full_date[5:7]}.{full_date[0:4]}"
+
+
+if __name__ == '__main__':
+    print(get_date("2024-03-11T02:26:18.671407"))
