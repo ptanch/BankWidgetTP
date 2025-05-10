@@ -1,3 +1,6 @@
+from datetime import datetime
+from typing import Dict, List
+
 info_from_users = [
     {"id": 41428829, "state": "EXECUTED", "date": "2019-07-03T18:35:29.512364"},
     {"id": 939719570, "state": "EXECUTED", "date": "2018-06-30T02:08:58.425572"},
@@ -6,7 +9,7 @@ info_from_users = [
 ]
 
 
-def filter_by_state(users_info: list, state: str = "EXECUTED") -> list:
+def filter_by_state(users_info: List[Dict], state: str = "EXECUTED") -> List[Dict]:
     """Filtering of user data on executed / canceled operations"""
 
     new_info = []
@@ -17,5 +20,17 @@ def filter_by_state(users_info: list, state: str = "EXECUTED") -> list:
     return new_info
 
 
+def sort_by_date(users_info: List[Dict], descending: bool = True) -> List[Dict]:
+    """Sorting user data by date in ascending or descending"""
+
+    return sorted(users_info, key=lambda x: datetime.fromisoformat(x['date']), reverse=descending)
+
+
 if __name__ == "__main__":
     print(filter_by_state(info_from_users, "CANCELED"))
+
+    # по убыванию
+    print(sort_by_date(info_from_users))
+
+    # по возрастанию
+    print(sort_by_date(info_from_users, descending=False))
