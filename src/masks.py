@@ -4,6 +4,9 @@ from typing import Optional
 def get_mask_card_number(card_number: str) -> str:
     """Obtaining card numbers and masking some of them"""
 
+    if len(card_number) < 12:
+        raise ValueError("Invalid card number length")
+
     masked_card_number = card_number.replace(card_number[6:12], "******")
 
     splits = []
