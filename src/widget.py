@@ -1,7 +1,8 @@
 import re
+from datetime import datetime
 from re import Match
 
-from masks import get_mask_account, get_mask_card_number
+from src.masks import get_mask_account, get_mask_card_number
 
 
 def mask_account(match: Match[str]) -> str:
@@ -40,7 +41,11 @@ if __name__ == '__main__':
 
 def get_date(full_date: str) -> str:
     """Output of a simplified date"""
-    return f"{full_date[8:10]}.{full_date[5:7]}.{full_date[0:4]}"
+    try:
+        dt = datetime.fromisoformat(full_date)
+        return dt.strftime("%d.%m.%Y")
+    except ValueError:
+        return "Некорректная дата"
 
 
 if __name__ == '__main__':
