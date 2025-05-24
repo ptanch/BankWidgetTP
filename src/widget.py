@@ -48,5 +48,5 @@ def get_date(full_date: str) -> str:
         return "Некорректная дата"
 
 
-if __name__ == '__main__':
+if __name__ == '__main__': # pragma: no cover
     print(get_date("2024-03-11T02:26:18.671407"))

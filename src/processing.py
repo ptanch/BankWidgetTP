@@ -26,7 +26,7 @@ def sort_by_date(users_info: List[Dict], descending: bool = True) -> List[Dict]:
     return sorted(users_info, key=lambda x: datetime.fromisoformat(x['date']), reverse=descending)
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": # pragma: no cover
     print(filter_by_state(info_from_users, "CANCELED"))
 
     # по убыванию
