@@ -12,17 +12,6 @@ def valid_bank_data() -> dict[str, str]:
     }
 
 
-@pytest.fixture
-def invalid_bank_data() -> list[str]:
-    return [
-        "Счет 123456789012345",  # слишком короткий
-        "Номер карты 12345678901234",  # слишком короткий
-        "Карта ABCD1234EFGH5678",  # нечисловые символы
-        "",  # пустая строка
-        "Просто текст без номеров",  # нет номеров
-    ]
-
-
 @pytest.mark.parametrize(
     "input_text,expected",
     [

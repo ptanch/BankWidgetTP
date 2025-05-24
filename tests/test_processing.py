@@ -55,14 +55,6 @@ def same_dates() -> List[Dict]:
 
 
 @pytest.fixture
-def invalid_date_format() -> List[Dict]:
-    return [
-        {"id": 1, "date": "15-07-2023 15:45:30"},
-        {"id": 2, "date": "2022/01/03 10:00:00"},
-    ]
-
-
-@pytest.fixture
 def partially_valid_dates() -> List[Dict]:
     return [
         {"id": 1, "date": "2022-01-01T00:00:00"},

@@ -12,18 +12,6 @@ def valid_card_numbers() -> List[str]:
     return ["1234567890123456", "9876543210987654", "0000001111112222"]
 
 
-@pytest.fixture
-def edge_case_card_numbers() -> List[str]:
-    return [
-        "",
-        "123",
-        "123456",
-        "1234567890",
-        "12345678901234567890",
-        "1234abcd5678efgh",
-    ]
-
-
 @pytest.mark.parametrize(
     "card_number,expected",
     [
