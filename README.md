@@ -79,6 +79,45 @@ masked = mask_account_card(text)
 
 # → "Transfer from card 1234 56** **** 5678 to account **4312"
 ```
+
+* `filter_by_currency(transactions, currency_code)`
+Генератор, который фильтрует транзакции по заданной валюте.
+
+**Пример**
+```
+from generators import filter_by_currency
+
+transactions = [ ... ]  # список транзакций (см. ниже)
+usd_transactions = filter_by_currency(transactions, "USD")
+
+for _ in range(2):
+    print(next(usd_transactions))
+```
+
+* `transaction_descriptions(transactions)`
+Генератор, возвращающий описания транзакций из списка
+
+**Пример**
+```
+from generators import transaction_descriptions
+
+descriptions = transaction_descriptions(transactions)
+for _ in range(5):
+    print(next(descriptions))
+```
+
+* `card_number_generator(start, end)`
+Генератор, создающий банковские карты в диапазоне start–end (включительно), 
+отформатированные как XXXX XXXX XXXX XXXX.
+
+**Пример**
+```commandline
+from generators import card_number_generator
+
+for card in card_number_generator(1, 5):
+    print(card)
+```
+
 ### Тестирование функций
 
 В модуле `test_masks.py` реализованы функции для тестирования существующего функционала.
@@ -115,3 +154,19 @@ masked = mask_account_card(text)
 * Тестирование сортировки списка словарей по датам в порядке убывания и возрастания
 * Проверка корректности сортировки при одинаковых датах
 * Тесты на работу функции с некорректными или нестандартными форматами дат
+
+В модуле `test_generators.py` были реализованы следующие тестирующие функции:
+Для функции `filter_by_currency`:
+* Напиcаны тесты, проверяющие, что функция корректно фильтрует транзакции по заданной валюте
+* Обрабатаны случаи, когда транзакции в заданной валюте отсутствуют
+* Проверено, что генератор не завершается ошибкой при обработке пустого списка или списка без соответствующих
+валютных операций
+
+Для функции `transaction_descriptions`:
+* Проверено, что функция возвращает корректные описания для каждой транзакции
+* Тесты для функции с различным количеством входных транзакций, включая пустой список
+
+Для функции `card_number_generator`:
+* Тесты, проверяющие, что генератор выдает правильные номера карт в заданном диапазоне
+* Проверена корректность форматирования номеров карт
+* Проверено, что генератор корректно обрабатывает крайние значения диапазона и правильно завершает генерацию
