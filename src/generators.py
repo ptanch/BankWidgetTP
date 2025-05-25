@@ -1,3 +1,5 @@
+MAX_CARD_NUMBER = 9999999999999999
+
 transactions = [
     {
         "id": 939719570,
@@ -70,8 +72,7 @@ for _ in range(5):
 def card_number_generator(start, end):
     """Generation of card number"""
 
-    max_card_number = 9999999999999999
-    if start < 0 or end > max_card_number:
+    if start < 0 or end > MAX_CARD_NUMBER:
         raise ValueError("Card number must be in range 0000000000000000 to 9999999999999999")
     for number in range(start, end + 1):
         formatted = f"{number:016d}"
