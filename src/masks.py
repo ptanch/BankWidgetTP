@@ -31,7 +31,7 @@ def get_mask_account(account_number: str) -> str:
     return "**" + account_number[-4:]
 
 
-if __name__ == '__main__':
+if __name__ == '__main__':  # pragma: no cover
 
     card_number = str(input("Введите номер карты "))
     print(get_mask_card_number(card_number))  # 7000 79** **** 6361 function output
