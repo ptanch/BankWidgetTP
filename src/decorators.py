@@ -2,6 +2,9 @@ import functools
 
 
 def log(filename=None):
+    """Decorator that logs the successful execution of a function
+     or errors that have occurred"""
+
     def decorator(func):
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
@@ -20,6 +23,8 @@ def log(filename=None):
 
 
 def _write_log(message, filename):
+    """Logs the message"""
+
     if filename:
         with open(filename, "a", encoding="utf-8") as f:
             f.write(message + "\n")
