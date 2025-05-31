@@ -70,7 +70,7 @@ if __name__ == "__main__":  # pragma: no cover
         {"description": "Перевод со счета на счет"},
         {"description": "Перевод с карты на карту"},
         {"description": "Перевод организации"},
-   ]
+    ]
 
     descriptions = transaction_descriptions(transactions)
 

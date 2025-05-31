@@ -1,4 +1,3 @@
-import os
 import pytest
 from src.decorators import log
 
@@ -6,7 +5,7 @@ from src.decorators import log
 #  test for console output
 def test_success_console_log(capsys):
     @log()
-    def func_add (x, y):
+    def func_add(x, y):
         return x + y
 
     result = func_add(2, 3)
@@ -40,6 +39,7 @@ def test_success_file_log(tmp_path):
 
     content = log_file.read_text()
     assert "func_multiply" in content
+
 
 def test_error_file_log(tmp_path):
     log_file = tmp_path / "log.txt"

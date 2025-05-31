@@ -32,11 +32,9 @@ if __name__ == "__main__":  # pragma: no cover
     def my_function(x, y):
         return x + y
 
-
     @log()
     def fault_function(a, b):
         return a / b
-
 
     my_function(1, 2)
     fault_function(1, 0)
