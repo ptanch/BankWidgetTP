@@ -32,7 +32,7 @@ def get_transaction_amount_rub(transaction: dict) -> float:
     return float(data["result"])
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     transaction1 = {'amount': 100, 'currency': 'USD'}
     transaction2 = {'amount': 100, 'currency': 'RUB'}
 
