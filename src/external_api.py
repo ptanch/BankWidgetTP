@@ -8,6 +8,7 @@ load_dotenv()
 API_KEY = os.getenv('EXCHANGE_RATES_API_KEY')
 API_URL = "https://api.apilayer.com/exchangerates_data/convert"
 
+
 def get_transaction_amount_rub(transaction: dict) -> float:
     amount = transaction['amount']
     currency = transaction['currency']
