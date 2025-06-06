@@ -10,6 +10,7 @@ API_URL = "https://api.apilayer.com/exchangerates_data/convert"
 
 
 def get_transaction_amount_rub(transaction: dict) -> float:
+    """Function for getting transactions info and returns the transaction amount"""
     amount = transaction['amount']
     currency = transaction['currency']
 
