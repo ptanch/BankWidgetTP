@@ -44,7 +44,7 @@ def read_excel_transactions(excel_file_path):
         return []
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'transactions.csv')
     transactions = read_csv_transactions(file_path)
     print(f"Всего операций в CSV: {len(transactions)}")
