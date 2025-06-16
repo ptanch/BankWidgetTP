@@ -1,7 +1,7 @@
 import os
 from src.utils import read_transactions
 from src.csv_excel_transactions import read_csv_transactions, read_excel_transactions
-from src.processing import filter_by_state
+from src.processing import filter_by_state, sort_by_date
 
 
 AVAILABLE_STATUSES = {"EXECUTED", "CANCELED", "PENDING"}
@@ -55,3 +55,20 @@ def main():
             break
         else:
             print(f'Программа: Статус операции "{user_status}" недоступен.')
+
+        #  Сортировка по дате
+        print("\nПрограмма: Отсортировать операции по дате? Да/Нет")
+        sort_answer = input("Пользователь: ").strip().lower()
+
+        if sort_answer == "да":
+            print("\nПрограмма: Отсортировать по возрастанию или по убыванию?")
+            order = input("Пользователь: ").strip().lower()
+
+            if "возрастан" in order:
+                transactions = sort_by_date(transactions, descending=False)
+            else:
+                transactions = sort_by_date(transactions, descending=True)
+
+            print("Программа: Операции отсортированы по дате.")
+        else:
+            print("Программа: Сортировка по дате пропущена.")
