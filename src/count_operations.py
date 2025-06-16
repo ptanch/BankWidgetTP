@@ -1,6 +1,6 @@
 import re
 from collections import Counter
-from typing import List, Dict
+from typing import Dict, List
 
 
 def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str, int]:
