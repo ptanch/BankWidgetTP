@@ -1,9 +1,11 @@
 import os
 import sys
-from src.masks import get_mask_account, get_mask_card_number
+from typing import Any, List
 
 import pytest
-from typing import List, Any
+
+from src.masks import get_mask_account, get_mask_card_number
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "src")))
 
 

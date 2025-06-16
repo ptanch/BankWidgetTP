@@ -1,9 +1,12 @@
-import sys
 import os
+import sys
+
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import unittest
-from unittest.mock import patch, Mock
+from unittest.mock import Mock, patch
+
 from src.external_api import get_transaction_amount_rub
+
 
 class TestGetTransactionAmountRub(unittest.TestCase):
 
