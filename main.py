@@ -3,6 +3,7 @@ from src.utils import read_transactions
 from src.csv_excel_transactions import read_csv_transactions, read_excel_transactions
 from src.processing import filter_by_state, sort_by_date
 from src.generators import filter_by_currency
+from src.search_transactions import process_bank_search
 
 
 AVAILABLE_STATUSES = {"EXECUTED", "CANCELED", "PENDING"}
@@ -83,3 +84,14 @@ def main():
         print("Программа: Отобраны только транзакции в рублях.")
     else:
         print("Программа: Фильтрация по валюте пропущена.")
+
+    #  Фильтрация по ключевому слову в описании
+    print("\nПрограмма: Отфильтровать список транзакций по определенному слову в описании? Да/Нет")
+    desc_answer = input("Пользователь: ").strip().lower()
+
+    if desc_answer == "да":
+        keyword = input("Программа: Введите ключевое слово для фильтрации: ").strip()
+        transactions = process_bank_search(transactions, keyword)
+        print(f"Программа: Выполнен поиск по ключевому слову '{keyword}' в описаниях операций.")
+    else:
+        print("Программа: Фильтрация по описанию пропущена.")
