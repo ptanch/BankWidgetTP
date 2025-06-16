@@ -1,6 +1,10 @@
 import os
 from src.utils import read_transactions
 from src.csv_excel_transactions import read_csv_transactions, read_excel_transactions
+from src.processing import filter_by_state
+
+
+AVAILABLE_STATUSES = {"EXECUTED", "CANCELED", "PENDING"}
 
 
 def main():
@@ -39,3 +43,15 @@ def main():
     if not transactions:
         print("Программа: Не удалось загрузить данные. Завершение работы.")
         return
+
+    while True:
+        print("\nПрограмма: Введите статус, по которому необходимо выполнить фильтрацию.")
+        print("Доступные для фильтровки статусы: EXECUTED, CANCELED, PENDING")
+        user_status = input("Пользователь: ").strip().upper()
+
+        if user_status in AVAILABLE_STATUSES:
+            transactions = filter_by_state(transactions, user_status)
+            print(f'Программа: Операции отфильтрованы по статусу "{user_status}"')
+            break
+        else:
+            print(f'Программа: Статус операции "{user_status}" недоступен.')
