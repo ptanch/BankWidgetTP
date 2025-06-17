@@ -30,5 +30,4 @@ def test_multiple_matches_in_one_description():
     ]
     categories = ['продукты', 'связь']
     result = process_bank_operations(data, categories)
-    # 'продукты' встречается раньше в списке категорий, но в описании 'связь' идёт первой — она будет выбрана
     assert result == {'связь': 1}
