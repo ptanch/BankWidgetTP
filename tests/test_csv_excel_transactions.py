@@ -40,15 +40,22 @@ def test_read_csv_transactions_generic_error(capsys):
 #  Tests for Excel
 def test_read_excel_transactions_success():
     fake_df = Mock()
+    fake_df_filled = Mock()
     expected = [{"id": 2, "amount": 200}]
-    fake_df.to_dict.return_value = expected
+    fake_df.fillna.return_value = fake_df_filled
+    fake_df_filled.to_dict.return_value = expected
 
     with patch("src.csv_excel_transactions.pd.read_excel", return_value=fake_df) as mock_read:
         result = read_excel_transactions("dummy/path.xlsx")
 
     expected_path = os.path.abspath("dummy/path.xlsx")
-    mock_read.assert_called_once_with(expected_path, engine="openpyxl")
-    fake_df.to_dict.assert_called_once_with(orient="records")
+    mock_read.assert_called_once()
+    args, kwargs = mock_read.call_args
+    assert args == (expected_path,)
+    assert kwargs["engine"] == "openpyxl"
+    assert kwargs["dtype"] == str
+    fake_df.fillna.assert_called_once_with("")
+    fake_df_filled.to_dict.assert_called_once_with(orient="records")
     assert result == expected
 
 
