@@ -4,14 +4,20 @@ from typing import Dict, List
 
 
 def process_bank_operations(data: List[Dict], categories: List[str]) -> Dict[str, int]:
+    """Searching the list of operation dictionaries by a specified string"""
+
     # Преобразуем список категорий в список регулярных выражений (игнорируем регистр)
-    category_patterns = {cat: re.compile(re.escape(cat), re.IGNORECASE) for cat in categories}
+    category_patterns = {
+        cat.strip().lower(): re.compile(re.escape(cat.strip()), re.IGNORECASE)
+        for cat in categories
+    }
 
     # Счётчик для количества операций по категориям
     counter = Counter()
 
     for item in data:
         description = item.get('description', '')
+        print("Проверка:", description)
         for category, pattern in category_patterns.items():
             if pattern.search(description):
                 counter[category] += 1
