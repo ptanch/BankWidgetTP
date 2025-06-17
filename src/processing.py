@@ -14,7 +14,7 @@ def filter_by_state(users_info: List[Dict], state: str = "EXECUTED") -> List[Dic
 
     new_info = []
     for person_info in users_info:
-        if person_info["state"] == state:
+        if person_info.get("state", "").upper() == state:
             new_info.append(person_info)
 
     return new_info
