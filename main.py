@@ -1,12 +1,46 @@
 import os
-from src.utils import read_transactions
-from src.csv_excel_transactions import read_csv_transactions, read_excel_transactions
-from src.processing import filter_by_state, sort_by_date
-from src.generators import filter_by_currency
-from src.search_transactions import process_bank_search
+from typing import Dict, List
 
+from src.csv_excel_transactions import read_csv_transactions, read_excel_transactions
+from src.generators import filter_by_currency
+from src.processing import filter_by_state, sort_by_date
+from src.search_transactions import process_bank_search
+from src.utils import read_transactions
+from src.widget import get_date, mask_account_card
 
 AVAILABLE_STATUSES = {"EXECUTED", "CANCELED", "PENDING"}
+
+
+def display_transactions(transactions: List[Dict]) -> None:
+    """Печатает список транзакций в читаемом виде."""
+    if not transactions:
+        print("\nПрограмма: Не найдено ни одной транзакции, подходящей под ваши условия фильтрации")
+        return
+
+    print("\nПрограмма: Распечатываю итоговый список транзакций...\n")
+    print(f"Всего банковских операций в выборке: {len(transactions)}\n")
+
+    for tx in transactions:
+        # 1. Дата + описание
+        date_str = get_date(tx.get("date", ""))
+        print(f"{date_str} {tx.get('description', '').strip()}")
+
+        # 2. Откуда / куда (могут отсутствовать)
+        from_to_parts = []
+        if "from" in tx and tx["from"]:
+            from_to_parts.append(mask_account_card(tx["from"]))
+        if "to" in tx and tx["to"]:
+            from_to_parts.append(mask_account_card(tx["to"]))
+        if from_to_parts:
+            print(" -> ".join(from_to_parts))
+
+        # 3. Сумма + валюта
+        amount = tx.get("operationAmount", {}).get("amount", "")
+        code = tx.get("operationAmount", {}).get("currency", {}).get("code", "")
+        if not amount:  # резервный вариант, вдруг другая структура
+            amount = tx.get("amount", "")
+            code = tx.get("currency", "")
+        print(f"Сумма: {amount} {code}\n")
 
 
 def main():
@@ -22,19 +56,17 @@ def main():
 
     if choice == "1":
         print("Программа: Для обработки выбран JSON-файл.")
-        file_path = input(
-            "Введите путь к JSON-файлу (по умолчанию: operations.json): ").strip() or "operations.json"
+        file_path = os.path.join("data", "operations.json")
         transactions = read_transactions(file_path)
 
     elif choice == "2":
         print("Программа: Для обработки выбран CSV-файл.")
-        file_path = input("Введите путь к CSV-файлу (по умолчанию: transactions.csv): ").strip() or "transactions.csv"
+        file_path = os.path.join("data", "transactions.csv")
         transactions = read_csv_transactions(file_path)
 
     elif choice == "3":
         print("Программа: Для обработки выбран XLSX-файл.")
-        file_path = input(
-            "Введите путь к Excel-файлу (по умолчанию: transactions_excel.xlsx): ").strip() or "transactions_excel.xlsx"
+        file_path = os.path.join("data", "transactions_excel.xlsx")
         transactions = read_excel_transactions(file_path)
 
     else:
@@ -95,3 +127,9 @@ def main():
         print(f"Программа: Выполнен поиск по ключевому слову '{keyword}' в описаниях операций.")
     else:
         print("Программа: Фильтрация по описанию пропущена.")
+
+    display_transactions(transactions)
+
+
+if __name__ == "__main__":
+    main()
