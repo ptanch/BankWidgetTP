@@ -34,7 +34,8 @@ def read_excel_transactions(excel_file_path):
     abs_path = os.path.abspath(excel_file_path)
 
     try:
-        df = pd.read_excel(abs_path, engine='openpyxl')
+        df = pd.read_excel(abs_path, engine='openpyxl', dtype=str)
+        df = df.fillna("")
         return df.to_dict(orient='records')
     except FileNotFoundError:
         print(f"Файл не найден: {abs_path}")
